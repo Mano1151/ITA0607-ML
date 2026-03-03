@@ -1,0 +1,33 @@
+#FIND-S algorithm
+import csv
+
+data = [
+    ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes'],
+    ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes'],
+    ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No'],
+    ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
+]
+
+num_attributes = len(data[0]) - 1
+hypothesis = ['Ø'] * num_attributes
+
+print("Initial Hypothesis:", hypothesis)
+
+for example in data:
+    if example[-1] == 'Yes':
+        for i in range(num_attributes):
+            if hypothesis[i] == 'Ø':
+                hypothesis[i] = example[i]
+            elif hypothesis[i] != example[i]:
+                hypothesis[i] = '?'
+
+        print("Updated Hypothesis:", hypothesis)
+
+print("Final Hypothesis:", hypothesis)
+
+
+Initial Hypothesis: ['Ø', 'Ø', 'Ø', 'Ø', 'Ø', 'Ø']
+Updated Hypothesis: ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']
+Updated Hypothesis: ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']
+Updated Hypothesis: ['Sunny', 'Warm', '?', 'Strong', '?', '?']
+Final Hypothesis: ['Sunny', 'Warm', '?', 'Strong', '?', '?']
