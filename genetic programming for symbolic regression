@@ -1,0 +1,29 @@
+#genetic programming for symbolic regression
+import numpy as np
+from gplearn.genetic import SymbolicRegressor
+from sklearn.metrics import mean_squared_error
+
+
+np.random.seed(0)
+X = np.linspace(-5, 5, 100).reshape(-1, 1)
+y = X[:, 0]**2 + X[:, 0] + 1
+
+
+model = SymbolicRegressor(
+    population_size=500,
+    generations=20,
+    tournament_size=20,
+    stopping_criteria=0.01,
+    const_range=(-5, 5),
+    random_state=0
+)
+
+model.fit(X, y)
+
+y_pred = model.predict(X)
+
+print("Best Expression:", model._program)
+print("MSE:", mean_squared_error(y, y_pred))
+
+Best Expression: add(X0, add(mul(X0, X0), div(X0, X0)))
+MSE: 1.910522504832138e-32
